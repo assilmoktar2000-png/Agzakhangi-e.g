@@ -3,28 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أجزخانجي - Agzakhangi</title>
+    <title>Agzakhangi - دخول</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <h1 class="main-logo">Agza<span>khangi</span></h1>
+            <p class="subtitle">صيدليتك الذكية بلمسة أمازون</p>
+            
+            <button class="google-btn" onclick="app.login('user')">
+                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                الدخول بحساب جوجل
+            </button>
 
-    <header>
-        <div class="logo">Agza<span>khangi</span></div>
-        <p class="slogan">صيدليتك في جيبك</p>
-    </header>
+            <div class="divider"><span>أو دخول المدير</span></div>
 
-    <div class="search-section">
-        <input type="text" id="searchInput" placeholder="ابحث عن دواء، فيتامين، أو منتج..." onkeyup="app.search()">
+            <div class="admin-box">
+                <div class="input-group">
+                    <input type="password" id="adminPass" placeholder="كلمة السر الخاصة بالوالد">
+                    <span class="icon">🔒</span>
+                </div>
+                <button class="admin-btn" onclick="app.login('admin')">دخول لوحة التحكم</button>
+            </div>
+            
+            <p class="footer-text">Agzakhangi Systems 2026 ©</p>
+        </div>
     </div>
 
-    <main id="productsGrid" class="products-grid">
-        </main>
-
-    <div class="bottom-nav">
-        <div class="cart-info">
-            <span id="cartCount">0</span> أصناف | <span id="totalPrice">0.00</span> ج.م
+    <div id="mainApp" class="hidden">
+        <header>
+            <div class="logo">Agza<span>khangi</span></div>
+        </header>
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="ابحث عن دواء..." onkeyup="app.search()">
         </div>
-        <button class="checkout-btn" onclick="app.checkout()">تأكيد الطلب ←</button>
+        <main id="productsGrid" class="products-grid"></main>
+        <div class="bottom-nav">
+            <div class="cart-info"><span id="cartCount">0</span> أصناف | <span id="totalPrice">0.00</span> ج.م</div>
+            <button class="checkout-btn">تأكيد الطلب</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
