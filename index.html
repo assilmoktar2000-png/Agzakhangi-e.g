@@ -3,60 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Agzakhangi App</title>
+    <title>Agzakhangi Enterprise v6.0</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="loginPage" class="screen-center">
-        <div class="login-card">
-            <h1 class="app-logo">Agza<span>khangi</span></h1>
-            <p class="app-info">النظام الصيدلي المتكامل 2026</p>
-            
-            <div class="input-group">
-                <input type="email" id="email" placeholder="البريد الإلكتروني">
-                <input type="password" id="pass" placeholder="كلمة المرور">
+    <div id="loginPage" class="screen">
+        <div class="auth-box">
+            <h1 class="logo-text">Agza<span>khangi</span></h1>
+            <p class="tagline">نظام إدارة الصيدلية الرقمي</p>
+            <div class="form">
+                <input type="email" id="uEmail" placeholder="البريد الإلكتروني">
+                <input type="password" id="uPass" placeholder="كلمة المرور">
+                <button class="btn-glow" onclick="System.Auth.run()">دخول آمن</button>
             </div>
-            
-            <button class="btn-main-anim" onclick="App.login()">تسجيل الدخول</button>
-            
-            <div class="google-lite" onclick="App.googleAuth()">
+            <div class="google-wrap" onclick="System.Auth.google()">
                 <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="">
-                المتابعة بواسطة جوجل
+                <span>الدخول عبر حساب جوجل</span>
             </div>
         </div>
     </div>
 
-    <div id="mainApp" class="app-content hidden">
-        <header class="main-header">
-            <div class="user-bar">
-                <div class="user-text">
-                    <h2 id="welcomeName">أهلاً بك يا عميلنا العزيز</h2>
-                    <p>دواؤك يصلك في دقائق معدودة 🚀</p>
-                </div>
-                <div class="header-btns">
-                    <button onclick="App.share()"><i class="fas fa-share-nodes"></i></button>
+    <div id="mainApp" class="screen hidden">
+        <header class="app-header">
+            <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=User&background=482683&color=fff" class="avatar">
+                <div>
+                    <h2 id="displayUser">مرحباً بك</h2>
+                    <span class="status">دواؤك يصلك في دقائق معدودة 🚀</span>
                 </div>
             </div>
-            <div class="search-bar">
+            <div class="top-nav">
+                <button class="nav-icon" onclick="System.UI.share()"><i class="fas fa-share-alt"></i></button>
+            </div>
+            <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="بحث عن دواء..." onkeyup="App.search(this.value)">
+                <input type="text" placeholder="ابحث عن دواء..." onkeyup="System.Store.filter(this.value)">
             </div>
         </header>
 
-        <div id="productsGrid" class="meds-grid"></div>
+        <main id="medsGrid" class="meds-grid"></main>
 
-        <div id="cartBar" class="cart-strip hidden">
-            <div class="cart-data">
-                <span id="cartQty">0</span> منتجات | 
-                <span id="cartSum">0.00</span> ج.م
+        <footer id="cartStrip" class="cart-strip hidden">
+            <div class="cart-content">
+                <div class="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cCount">0</span></div>
+                <div class="price-box">الإجمالي: <span id="cTotal">0.00</span> ج.م</div>
             </div>
-            <button class="btn-checkout" onclick="App.checkout()">تأكيد الطلب</button>
-        </div>
+            <button class="checkout-btn" onclick="System.Store.order()">إتمام الطلب</button>
+        </footer>
 
-        <div class="ai-bot" onclick="App.aiHelp()">
-            <i class="fas fa-robot"></i>
+        <div class="ai-hub" onclick="System.AI.help()">
+            <i class="fas fa-microchip"></i>
         </div>
     </div>
 
