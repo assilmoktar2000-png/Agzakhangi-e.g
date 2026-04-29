@@ -1,35 +1,29 @@
-:root { --p: #482683; --a: #9b59b6; --w: #ffffff; }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: sans-serif; direction: rtl; background: #f4f7f6; }
+:root { --purple: #482683; --light: #9b59b6; --bg: #f8f9fb; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { margin: 0; font-family: 'Segoe UI', sans-serif; direction: rtl; background: var(--bg); overflow-x: hidden; }
 
-/* ضبط جوجل */
-.google-wrap {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    margin-top: 20px; padding: 12px; border-radius: 12px; border: 1px solid #ddd;
-    background: white; cursor: pointer; font-size: 14px;
+/* معالجة حجم جوجل بدقة */
+.google-lite-btn {
+    width: 100%; height: 48px; border: 1px solid #ddd; background: #fff;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    gap: 10px; cursor: pointer; transition: 0.2s;
 }
-.google-wrap img { width: 20px; height: 20px; }
+.google-lite-btn img { width: 18px; height: 18px; }
 
-/* أزرار متحركة */
-.btn-glow {
-    width: 100%; padding: 15px; border: none; border-radius: 12px;
-    background: linear-gradient(45deg, var(--p), var(--a));
-    color: white; font-weight: bold; cursor: pointer; transition: 0.3s;
-}
+/* الهيدر الاحترافي */
+.main-header { background: #fff; padding: 15px 20px; border-bottom: 1px solid #eee; sticky; top: 0; z-index: 100; }
+.promo-text { color: var(--light); font-size: 11px; font-weight: 700; margin-top: 2px; }
 
-/* الهيدر والترحيب */
-.app-header { background: white; padding: 20px; border-bottom: 1px solid #eee; sticky; top:0; z-index:100; }
-.status { color: var(--a); font-size: 11px; font-weight: bold; }
+/* شبكة المنتجات */
+.meds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; padding-bottom: 110px; }
+.product-card { background: #fff; border-radius: 18px; padding: 12px; text-align: center; border: 1px solid #f0f0f0; }
+.product-card img { width: 100%; height: 85px; object-fit: contain; }
 
 /* السلة الذكية */
 .cart-strip {
-    position: fixed; bottom: 0; left: 0; right: 0; background: #111;
-    padding: 20px; color: white; display: flex; justify-content: space-between;
-    align-items: center; border-radius: 25px 25px 0 0; z-index: 1000;
+    position: fixed; bottom: 0; left: 0; right: 0; background: #121212;
+    padding: 18px 25px; border-radius: 25px 25px 0 0; color: #fff; z-index: 1000;
 }
-
-.meds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; padding-bottom: 120px; }
-.card { background: white; border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #eee; }
-.card img { width: 100%; height: 90px; object-fit: contain; }
+.checkout-btn { background: var(--light); border: none; padding: 10px 20px; border-radius: 12px; color: #fff; font-weight: 700; }
 
 .hidden { display: none !important; }
