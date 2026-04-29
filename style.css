@@ -1,29 +1,82 @@
-:root { --purple: #482683; --light: #9b59b6; --bg: #f8f9fb; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { margin: 0; font-family: 'Segoe UI', sans-serif; direction: rtl; background: var(--bg); overflow-x: hidden; }
+const Core = {
+    Data: {
+        adminToken: "admin@agzakhangi.com",
+        meds: [
+            { id: 1, n: "PANADOL EXTRA", p: 35.00 },
+            { id: 2, n: "CONGESTAL", p: 31.50 },
+            { id: 3, n: "VICHY IDEAL", p: 520.00 },
+            { id: 4, n: "LA ROCHE-POSAY", p: 450.00 }
+        ],
+        cartItems: []
+    },
 
-/* معالجة حجم جوجل بدقة */
-.google-lite-btn {
-    width: 100%; height: 48px; border: 1px solid #ddd; background: #fff;
-    border-radius: 12px; display: flex; align-items: center; justify-content: center;
-    gap: 10px; cursor: pointer; transition: 0.2s;
-}
-.google-lite-btn img { width: 18px; height: 18px; }
+    Auth: {
+        handleLogin: function() {
+            const mail = document.getElementById('emailField').value;
+            const msg = (mail === Core.Data.adminToken) ? "أهلاً بك يا مدير النظام 👑" : "أهلاً بك يا عميلنا العزيز";
+            Core.System.init(msg);
+        },
+        googleSignIn: function() {
+            if(confirm("هل تسمح للتطبيق بالوصول لحساب جوجل الخاص بك؟")) Core.System.init("تم الدخول عبر جوجل ✅");
+        }
+    },
 
-/* الهيدر الاحترافي */
-.main-header { background: #fff; padding: 15px 20px; border-bottom: 1px solid #eee; sticky; top: 0; z-index: 100; }
-.promo-text { color: var(--light); font-size: 11px; font-weight: 700; margin-top: 2px; }
+    System: {
+        init: function(msg) {
+            document.getElementById('welcomeUser').innerText = msg;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appScreen').classList.remove('hidden');
+            Core.Store.renderGrid(Core.Data.meds);
+        }
+    },
 
-/* شبكة المنتجات */
-.meds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; padding-bottom: 110px; }
-.product-card { background: #fff; border-radius: 18px; padding: 12px; text-align: center; border: 1px solid #f0f0f0; }
-.product-card img { width: 100%; height: 85px; object-fit: contain; }
+    Store: {
+        renderGrid: function(items) {
+            const grid = document.getElementById('medsGrid');
+            grid.innerHTML = items.map(i => `
+                <div class="product-card">
+                    <img src="https://image.pollinations.ai/prompt/medicine-${i.n.replace(/ /g, '-')}-pack?nologo=true">
+                    <h4 style="font-size:12px; margin:8px 0">${i.n}</h4>
+                    <div style="color:#2ecc71; font-weight:bold">${i.p.toFixed(2)} ج.م</div>
+                    <button onclick="Core.Store.add(${i.id})" style="width:100%; border:none; background:#482683; color:#fff; padding:8px; border-radius:10px; margin-top:10px; cursor:pointer">إضافة</button>
+                </div>
+            `).join('');
+        },
+        add: function(id) {
+            const product = Core.Data.meds.find(p => p.id === id);
+            Core.Data.cartItems.push(product);
+            this.updateCartUI();
+        },
+        updateCartUI: function() {
+            const total = Core.Data.cartItems.reduce((s, i) => s + i.p, 0);
+            document.getElementById('itemCount').innerText = Core.Data.cartItems.length;
+            document.getElementById('totalPrice').innerText = total.toFixed(2);
+            document.getElementById('cartTerminal').classList.remove('hidden');
+        },
+        filterItems: function() {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const results = Core.Data.meds.filter(m => m.n.toLowerCase().includes(term));
+            this.renderGrid(results);
+        },
+        completeOrder: function() {
+            alert(`تم استلام طلبك بقيمة ${document.getElementById('totalPrice').innerText} ج.م وجاري المعالجة.`);
+            location.reload();
+        }
+    },
 
-/* السلة الذكية */
-.cart-strip {
-    position: fixed; bottom: 0; left: 0; right: 0; background: #121212;
-    padding: 18px 25px; border-radius: 25px 25px 0 0; color: #fff; z-index: 1000;
-}
-.checkout-btn { background: var(--light); border: none; padding: 10px 20px; border-radius: 12px; color: #fff; font-weight: 700; }
+    UI: {
+        shareApp: function() {
+            if (navigator.share) {
+                navigator.share({ title: 'أجزخانجي', url: window.location.href });
+            } else {
+                alert("تم نسخ رابط التطبيق لمشاركته!");
+            }
+        }
+    },
 
-.hidden { display: none !important; }
+    AI: {
+        getHelp: function() {
+            alert("مساعد أجزخانجي: ابحث عن الدواء، أضفه للسلة، واضغط تأكيد الطلب. زر المشاركة بالأعلى يتيح لك إرسال التطبيق لأصدقائك.");
+        }
+    }
+};
