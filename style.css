@@ -1,55 +1,35 @@
-:root {
-    --purple-1: #482683;
-    --purple-2: #9b59b6;
-    --white: #ffffff;
-}
+:root { --p: #482683; --a: #9b59b6; --w: #ffffff; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: sans-serif; direction: rtl; background: #f4f7f6; }
 
-body {
-    margin: 0; font-family: sans-serif; direction: rtl;
-    background: #f8f9fa; overflow-x: hidden;
-}
-
-/* حركة الألوان في الأزرار */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.btn-main-anim {
-    width: 100%; padding: 14px; border: none; border-radius: 12px;
-    background: linear-gradient(-45deg, var(--purple-1), var(--purple-2), #6c5ce7);
-    background-size: 400% 400%; animation: gradientBG 5s ease infinite;
-    color: white; font-weight: bold; cursor: pointer;
-}
-
-/* تصغير جوجل وجعله أنيقاً */
-.google-lite {
+/* ضبط جوجل */
+.google-wrap {
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    margin-top: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 10px;
-    font-size: 14px; cursor: pointer; background: white;
+    margin-top: 20px; padding: 12px; border-radius: 12px; border: 1px solid #ddd;
+    background: white; cursor: pointer; font-size: 14px;
 }
-.google-lite img { width: 18px; height: 18px; }
+.google-wrap img { width: 20px; height: 20px; }
 
-/* تنسيق الهيدر والسلة */
-.main-header { background: white; padding: 15px; border-bottom: 1px solid #eee; sticky; top: 0; z-index: 10; }
-.user-text h2 { font-size: 16px; margin: 0; color: var(--purple-1); }
-.user-text p { font-size: 11px; margin: 2px 0; color: var(--purple-2); font-weight: bold; }
+/* أزرار متحركة */
+.btn-glow {
+    width: 100%; padding: 15px; border: none; border-radius: 12px;
+    background: linear-gradient(45deg, var(--p), var(--a));
+    color: white; font-weight: bold; cursor: pointer; transition: 0.3s;
+}
 
+/* الهيدر والترحيب */
+.app-header { background: white; padding: 20px; border-bottom: 1px solid #eee; sticky; top:0; z-index:100; }
+.status { color: var(--a); font-size: 11px; font-weight: bold; }
+
+/* السلة الذكية */
 .cart-strip {
-    position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a;
-    padding: 15px 20px; display: flex; justify-content: space-between;
-    align-items: center; color: white; border-radius: 20px 20px 0 0;
+    position: fixed; bottom: 0; left: 0; right: 0; background: #111;
+    padding: 20px; color: white; display: flex; justify-content: space-between;
+    align-items: center; border-radius: 25px 25px 0 0; z-index: 1000;
 }
 
-.ai-bot {
-    position: fixed; bottom: 80px; left: 20px; width: 55px; height: 55px;
-    background: var(--purple-2); border-radius: 50%; display: flex;
-    justify-content: center; align-items: center; color: white;
-    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
-}
+.meds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; padding-bottom: 120px; }
+.card { background: white; border-radius: 20px; padding: 15px; text-align: center; border: 1px solid #eee; }
+.card img { width: 100%; height: 90px; object-fit: contain; }
 
 .hidden { display: none !important; }
-.meds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; padding-bottom: 100px; }
-.card { background: white; border-radius: 15px; padding: 10px; text-align: center; border: 1px solid #f0f0f0; }
-.card img { width: 100%; height: 90px; object-fit: contain; }
