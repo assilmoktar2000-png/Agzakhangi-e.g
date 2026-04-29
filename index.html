@@ -2,69 +2,88 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agzakhangi | أجزخانجي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agzakhangi Enterprise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="loginPage" class="auth-wrapper">
+    <section id="loginPage" class="auth-wrapper">
         <div class="auth-card">
-            <h1 class="logo">Agza<span>khangi</span></h1>
-            <p class="tagline">صيدليتك الذكية بلمسة أمازون</p>
+            <h1 class="brand-logo">Agza<span>khangi</span></h1>
+            <p class="brand-tagline">النظام الصيدلي المتكامل 2026</p>
             
-            <div class="field">
-                <input type="email" id="userEmail" placeholder="البريد الإلكتروني">
+            <div class="form-container">
+                <div class="input-field">
+                    <i class="fas fa-at"></i>
+                    <input type="email" id="emailInput" placeholder="البريد الإلكتروني">
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-shield-halved"></i>
+                    <input type="password" id="passInput" placeholder="كلمة المرور">
+                </div>
+                <button class="btn-primary" onclick="Core.Auth.login()">تسجيل دخول آمن</button>
+                
+                <div class="auth-divider"><span>أو المتابعة عبر</span></div>
+                
+                <button class="btn-google-global" onclick="Core.Auth.googleAuth()">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google">
+                    حساب جوجل الرسمي
+                </button>
             </div>
-            <div class="field">
-                <input type="password" id="userPass" placeholder="كلمة مرورك">
-            </div>
-            
-            <button class="btn-primary" onclick="app.authenticate()">تسجيل الدخول</button>
-            <div class="divider">أو</div>
-            <button class="btn-google" onclick="app.authenticate('google')">
-                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="">
-                متابعة باستخدام جوجل
-            </button>
+            <p class="copyright">Agzakhangi OS v4.0 © All Rights Reserved</p>
         </div>
-    </div>
+    </section>
 
-    <div id="mainApp" class="hidden">
-        <header class="app-header">
-            <div class="welcome-bar">
-                <div class="user-info">
-                    <span id="welcomeText">أهلاً بك يا عميلنا العزيز</span>
-                    <p class="sub-welcome">دواؤك يصلك في دقائق معدودة 🚀</p>
+    <section id="mainApp" class="app-wrapper hidden">
+        <header class="global-header">
+            <div class="header-top">
+                <div class="user-info-cluster">
+                    <div class="user-avatar-hex">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="user-welcome-text">
+                        <h2 id="userNameLabel">أهلاً بك يا عميلنا العزيز</h2>
+                        <p class="speed-label">دواؤك يصلك في دقائق معدودة</p>
+                    </div>
                 </div>
-                <div class="top-icons">
-                    <i class="fas fa-qrcode" onclick="app.scan()"></i>
-                    <i class="fas fa-share-alt" onclick="app.share()"></i>
+                <div class="action-cluster">
+                    <button class="icon-btn" onclick="Core.UI.scan()"><i class="fas fa-expand"></i></button>
+                    <button class="icon-btn" onclick="Core.UI.share()"><i class="fas fa-share-nodes"></i></button>
                 </div>
             </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="ابحث عن الدواء، الفيتامينات، أو المستلزمات..." onkeyup="app.search()">
+            <div class="search-orbital">
+                <i class="fas fa-magnifying-glass"></i>
+                <input type="text" id="mainSearch" placeholder="البحث في المستودع الرقمي..." onkeyup="Core.Store.filter()">
             </div>
         </header>
 
-        <main id="productsGrid" class="products-container"></main>
+        <main id="storeGrid" class="store-grid"></main>
 
-        <div class="shopping-cart-bar">
-            <div class="cart-details">
-                <div class="cart-icon-wrapper">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span id="cartCount" class="badge">0</span>
+        <div class="ai-terminal" id="aiTerminal" onclick="Core.AI.showGuide()">
+            <div class="ai-core">
+                <i class="fas fa-microchip"></i>
+                <div class="ai-waves"></div>
+            </div>
+        </div>
+
+        <footer id="cartManager" class="cart-terminal hidden">
+            <div class="cart-status">
+                <div class="cart-icon-stack">
+                    <i class="fas fa-bag-shopping"></i>
+                    <span id="cartCountBadge" class="count-badge">0</span>
                 </div>
-                <div class="price-stack">
-                    <span class="label">إجمالي الطلب</span>
-                    <span class="value"><span id="totalPrice">0.00</span> ج.م</span>
+                <div class="cart-summary-data">
+                    <span class="total-label">ملخص الفاتورة</span>
+                    <span class="total-value"><span id="cartTotalSum">0.00</span> ج.م</span>
                 </div>
             </div>
-            <button class="btn-checkout" onclick="app.checkout()">إتمام الطلب</button>
-        </div>
-    </div>
+            <button class="checkout-trigger" onclick="Core.Store.checkout()">
+                إرسال الطلب للمراجعة <i class="fas fa-bolt"></i>
+            </button>
+        </footer>
+    </section>
 
     <script src="script.js"></script>
 </body>
